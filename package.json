@@ -1,0 +1,31 @@
+{
+  "name": "28-backend-assesment",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "FAVS company - backend assesment",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon .",
+    "start": "node .",
+    "postinstall": "prisma generate"
+  },
+  "keywords": [
+    "backend",
+    "API",
+    "RESTfull",
+    "Prisma",
+    "MySQL",
+    "Railway"
+  ],
+  "author": "Ivan Cabulo",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@prisma/client": "^4.13.0",
+    "nodemon": "^2.0.22",
+    "prisma": "^4.13.0"
+  }
+}
