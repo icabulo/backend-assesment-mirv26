@@ -19,7 +19,7 @@ model items {
 }
 
 model lists {
-  idlist      Int     @id @unique(map: "idlist_UNIQUE")
+  idlist      Int     @id @unique(map: "idlist_UNIQUE") @default(autoincrement())
   name        String  @unique(map: "name_UNIQUE") @db.VarChar(45)
   user_iduser Int
   items       items[]

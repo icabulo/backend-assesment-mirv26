@@ -1,16 +1,13 @@
 import express from "express";
+import { getAllLists, createList } from "../controllers/lists.controllers.js";
 
 const router = express.Router();
 
 // Get all list of favorites
-router.get("/", async (req, res) => {
-  res.send("Get all list of favorites");
-});
+router.get("/", getAllLists);
 
 // Creates a new list of favorites
-router.post("/", async (req, res) => {
-  res.send("Creates a new list of favorites");
-});
+router.post("/", createList);
 
 // Get a single list of favorites
 router.get("/:id", async (req, res) => {
