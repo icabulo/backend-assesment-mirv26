@@ -1,5 +1,9 @@
 import express from "express";
-import { getAllLists, createList } from "../controllers/lists.controllers.js";
+import {
+  getAllLists,
+  createList,
+  findListById,
+} from "../controllers/lists.controllers.js";
 
 const router = express.Router();
 
@@ -10,9 +14,7 @@ router.get("/", getAllLists);
 router.post("/", createList);
 
 // Get a single list of favorites
-router.get("/:id", async (req, res) => {
-  res.send("Get a single list of favorites");
-});
+router.get("/:id", findListById);
 
 // Deletes a list of favorites
 router.delete("/:id", async (req, res) => {

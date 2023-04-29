@@ -55,27 +55,27 @@ export const createList = async (req, res) => {
   }
 };
 
-export const findCommentById = async (req, res) => {
+export const findListById = async (req, res) => {
   try {
     const { id } = req.params;
-    const commentById = await prisma.comments.findFirst({
+    const listById = await prisma.lists.findUnique({
       where: {
-        idcomment: parseInt(id),
+        idlist: parseInt(id),
       },
     });
-    if (commentById === null) {
+    if (listById === null) {
       res
         .status(209)
-        .json({ error: true, erroMessage: "No content: Comment id not found" });
+        .json({ error: true, erroMessage: "No content: List id not found" });
     } else {
-      res.status(200).json(commentById);
+      res.status(200).json(listById);
     }
   } catch (error) {
     res.status(500).json({ error: true });
   }
 };
 
-export const updateCommentById = async (req, res) => {
+/* export const updatelistById = async (req, res) => {
   try {
     const { id } = req.params;
     const updateComment = await prisma.comments.update({
@@ -92,9 +92,9 @@ export const updateCommentById = async (req, res) => {
       res.status(500).json({ error: true });
     }
   }
-};
+}; */
 
-export const deleteCommentById = async (req, res) => {
+/* export const deleteCommentById = async (req, res) => {
   try {
     const { id } = req.params;
     const deleteComment = await prisma.comments.delete({
@@ -111,3 +111,4 @@ export const deleteCommentById = async (req, res) => {
     }
   }
 };
+ */
