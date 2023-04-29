@@ -95,7 +95,7 @@ export const deleteListById = async (req, res) => {
 };
 
 /* 
-// UPDATE method was not part of the mission assesment
+// UPDATE method was not part of the mission assessment
 export const updateListById = async (req, res) => {
   try {
     const { id } = req.params;
