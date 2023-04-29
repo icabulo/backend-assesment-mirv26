@@ -19,7 +19,7 @@ router.get("/:id", findListById);
 
 // Deletes a list of favorites
 // NOTE: cascade delete is enable in the schema model:
-// CAUTION: if is list is deleted then all its items are deleted too.
+// CAUTION: if a list is deleted then all its items are deleted too.
 router.delete("/:id", deleteListById);
 
 export default router;
