@@ -13,7 +13,7 @@ model items {
   description  String  @db.VarChar(500)
   link         String? @db.VarChar(255)
   lists_idlist Int
-  lists        lists   @relation(fields: [lists_idlist], references: [idlist], onDelete: NoAction, onUpdate: NoAction, map: "fk_items_lists1")
+  lists        lists   @relation(fields: [lists_idlist], references: [idlist], onDelete: Cascade, onUpdate: NoAction, map: "fk_items_lists1")
 
   @@index([lists_idlist], map: "fk_items_lists1_idx")
 }

@@ -3,6 +3,7 @@ import {
   getAllLists,
   createList,
   findListById,
+  deleteListById,
 } from "../controllers/lists.controllers.js";
 
 const router = express.Router();
@@ -17,8 +18,8 @@ router.post("/", createList);
 router.get("/:id", findListById);
 
 // Deletes a list of favorites
-router.delete("/:id", async (req, res) => {
-  res.send("Deletes a list of favorites");
-});
+// NOTE: cascade delete is enable in the schema model:
+// CAUTION: if is list is deleted then all its items are deleted too.
+router.delete("/:id", deleteListById);
 
 export default router;
