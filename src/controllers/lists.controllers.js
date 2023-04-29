@@ -14,6 +14,7 @@ export const getAllLists = async (req, res) => {
         lists: {
           select: {
             name: true,
+            idlist: true,
             items: {
               select: {
                 title: true,
@@ -75,34 +76,15 @@ export const findListById = async (req, res) => {
   }
 };
 
-/* export const updatelistById = async (req, res) => {
+export const deleteListById = async (req, res) => {
   try {
     const { id } = req.params;
-    const updateComment = await prisma.comments.update({
+    const deleteList = await prisma.lists.delete({
       where: {
-        idcomment: parseInt(id),
-      },
-      data: req.body,
-    });
-    res.status(200).json(updateComment);
-  } catch (error) {
-    if (error.code && error.code === "P2025") {
-      res.status(209).json(error);
-    } else {
-      res.status(500).json({ error: true });
-    }
-  }
-}; */
-
-/* export const deleteCommentById = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deleteComment = await prisma.comments.delete({
-      where: {
-        idcomment: parseInt(id),
+        idlist: parseInt(id),
       },
     });
-    res.json(deleteComment);
+    res.json(deleteList);
   } catch (error) {
     if (error.code && error.code === "P2025") {
       res.status(209).json(error);
@@ -111,4 +93,24 @@ export const findListById = async (req, res) => {
     }
   }
 };
- */
+
+/* 
+// UPDATE method was not part of the mission assesment
+export const updateListById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateList = await prisma.lists.update({
+      where: {
+        idlist: parseInt(id),
+      },
+      data: req.body,
+    });
+    res.status(200).json(updateList);
+  } catch (error) {
+    if (error.code && error.code === "P2025") {
+      res.status(209).json(error);
+    } else {
+      res.status(500).json({ error: true });
+    }
+  }
+}; */
