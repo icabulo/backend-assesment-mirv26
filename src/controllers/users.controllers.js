@@ -13,20 +13,21 @@ export const createUser = async (req, res) => {
     });
     res.status(201).json(newUser);
   } catch (error) {
-    // console.log(error);
-    res.status(500).json({ error: true });
+    //error P2002: email is already in use
+    if (error.code === "P2002") {
+      res.status(401).json({ error: error.meta.target });
+    } else {
+      res.status(500).json({ error: true });
+    }
   }
 };
 
 export const generateToken = (req, res) => {
   try {
-    // console.log("body in generateToken", req.body);
     const token = jwt.sign({ id: req.body.userPayload }, process.env.SECRET, {
       expiresIn: "1d",
     });
 
-    // console.log("valid token", token);
-    // res.send("token generated");
     res.status(200).json({ token });
   } catch (error) {
     console.log(error);
@@ -43,7 +44,6 @@ export const login = async (req, res, next) => {
     });
 
     const isValidUser = bcrypt.compareSync(passwordInput, userDb.password);
-    // console.log("validade with Bcrypt", isValidUser);
 
     if (isValidUser) {
       //injecting user ID in the body.
