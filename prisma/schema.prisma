@@ -30,7 +30,7 @@ model lists {
 
 model users {
   iduser   Int     @id @unique(map: "iduser_UNIQUE") @default(autoincrement())
-  email    String  @db.VarChar(255)
+  email    String  @unique(map: "email_UNIQUE") @db.VarChar(255)
   password String  @db.VarChar(255)
   lists    lists[]
 }
