@@ -1,19 +1,15 @@
 import { PrismaClient } from "@prisma/client";
+import { isAuthorized, listValidation } from "./helpers/userScopeValidation.js";
 const prisma = new PrismaClient();
-// const prisma = new PrismaClient({ log: ["query"] });
-
-//targetID is injected with token authorization middlewqre
-function isAuthorized(inputId, targetId) {
-  return inputId.toString() === targetId.toString();
-}
 
 export const getAllLists = async (req, res) => {
-  // console.log(req.body);
+  // This section validates that the user in body request is the same as in the Token
   const { userId, tokenUserId } = req.body;
   if (!isAuthorized(userId, tokenUserId)) {
     return res.status(202).json("userId is unauthorized");
   }
-  //   console.log("id Type", typeof userId);
+
+  // This section runs the main controller.
   try {
     const userLists = await prisma.users.findUnique({
       where: {
@@ -46,45 +42,44 @@ export const getAllLists = async (req, res) => {
     } else {
       res.status(209).json({ error: true, errorMessage: "No content" });
     }
-    // res.send("ok");
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: true });
   }
 };
 
 export const createList = async (req, res) => {
-  const { user_iduser, tokenUserId } = req.body;
-  if (!isAuthorized(user_iduser, tokenUserId)) {
-    return res.status(202).json("userId is unauthorized");
-  }
   try {
-    //body request has tokenId injected.
-    // Data for prisma.create needs to be reorganized
-    const validData = {
-      name: req.body.name,
-      user_iduser: req.body.tokenUserId,
-    };
-    // console.log(validData);
+    // This section validates that the user in body request is the same as in the Token
+    const { name, user_iduser, tokenUserId } = req.body;
+    if (!isAuthorized(user_iduser, tokenUserId)) {
+      return res.status(202).json("userId is unauthorized");
+    }
+
+    // This section runs the main controller.
     const newList = await prisma.lists.create({
-      data: validData,
+      data: { name, user_iduser: tokenUserId }, // body user_iduser is overwriten to always match Token ID
     });
     res.status(201).json(newList);
-    // res.send("creating list");
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: true });
   }
 };
 
 export const findListById = async (req, res) => {
-  const { id } = req.params;
-  const { tokenUserId } = req.body;
-  if (!isAuthorized(id, tokenUserId)) {
-    return res.status(202).json("Invalid path: userId is unauthorized");
-  }
-
   try {
+    const { tokenUserId } = req.body;
+    const { id } = req.params;
+
+    // This section validates that the list id (from the body request) is also part of the user list of favorites
+    const result = await listValidation(tokenUserId, id);
+
+    if (!result) {
+      return res.status(202).json({
+        errorMessage: "Unauthorized idlist: User doesn't have this list",
+      });
+    }
+
+    // This section runs the main controller.
     const listById = await prisma.lists.findUnique({
       where: {
         idlist: parseInt(id),
@@ -102,31 +97,12 @@ export const findListById = async (req, res) => {
   }
 };
 
-async function listValidation(userId, listIdInput) {
-  const queryUserList = await prisma.users.findUnique({
-    where: {
-      iduser: parseInt(userId),
-    },
-    select: {
-      lists: {
-        select: {
-          idlist: true,
-        },
-      },
-    },
-  });
-  // console.log(queryUserList);
-  //get an array with the id's of the lists the user has
-  const userList = queryUserList.lists.map((item) => item.idlist);
-
-  return userList.includes(parseInt(listIdInput));
-}
-
 export const deleteListById = async (req, res) => {
   try {
     const { tokenUserId } = req.body;
     const { id } = req.params;
 
+    // This section validates that the list id (from the body request) is also part of the user list of favorites
     const result = await listValidation(tokenUserId, id);
 
     if (!result) {
@@ -134,7 +110,8 @@ export const deleteListById = async (req, res) => {
         errorMessage: "Unauthorized delete: User doesn't have this list",
       });
     }
-    // res.send("deleting your list");
+
+    // This section runs the main controller.
     const deleteList = await prisma.lists.delete({
       where: {
         idlist: parseInt(id),
@@ -152,6 +129,7 @@ export const deleteListById = async (req, res) => {
 
 /* 
 // UPDATE method was not part of the mission assessment
+//this code is a suggested base line for future implementations
 export const updateListById = async (req, res) => {
   try {
     const { id } = req.params;

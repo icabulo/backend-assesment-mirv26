@@ -22,7 +22,7 @@ export const createUser = async (req, res) => {
   }
 };
 
-export const generateToken = (req, res) => {
+/* export const generateToken = (req, res) => {
   try {
     const token = jwt.sign({ id: req.body.userPayload }, process.env.SECRET, {
       expiresIn: "1d",
@@ -30,10 +30,10 @@ export const generateToken = (req, res) => {
 
     res.status(200).json({ token });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: true });
   }
 };
+
 export const login = async (req, res, next) => {
   try {
     const { email: emailInput, password: passwordInput } = req.body;
@@ -61,3 +61,4 @@ export const login = async (req, res, next) => {
     }
   }
 };
+ */

@@ -10,9 +10,7 @@ export const verifyToken = (req, res, next) => {
     // injecting user id into the request body
     req.body.tokenUserId = id;
 
-    // console.log(decode);
-
-    //expired?
+    //check if expired
     if (Date.now() / 1000 > expDate) {
       res.status(401).send("Token expired");
     } else {
