@@ -82,7 +82,7 @@ Now you should see a message in your terminal window displaying: Server Initiali
 
 Use your REST client to make the request to the available endpoints. You can find a list of endpoints in the table below.
 
-Also, the is a folder in the repo with a backup file that has a collection of requests that can be imported into your REST Client (see folder src/restclient_backup_collection).
+Also, there is a folder in the repository with a backup file that has a collection of requests that can be imported into your REST Client (see folder src/restclient_backup_collection).
 
 #### **_Workflow example_**
 
