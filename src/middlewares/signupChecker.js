@@ -44,7 +44,7 @@ const checkErrors = (req, res, next) => {
   next();
 };
 
-export const singupValidator = [
+export const signupValidator = [
   validEmail(),
   validPassword(),
   passwordDoubleCheck(),
