@@ -72,13 +72,13 @@ Before running the API, you need to install the dependencies. Open a terminal in
 
 In a terminal window run the comand _npx prisma migrate reset_. If your data base is connected this command will errase your mysql-model (and data also), create a new one, an because the repository has a migration folde included, I'will run this migration to start anew.
 
-### 4. Run the API
+### 5. Run the API
 
 After dependencies are installed, open a terminal in your project folder and run de command: npm start.
 
 Now you should see a message in your terminal window displaying: Server Initialized on PORT.
 
-### 5. TEST endpoints
+### 6. TEST endpoints
 
 Use your REST client to make the request to the available endpoints. You can find a list of endpoints in the table below.
 
@@ -167,6 +167,6 @@ Delete a list: route **_/api/favs/:id_**, and method delete. Note that **_:id_**
 
 **_CAUTION_**: beware that by deleting a list, the items of the list will be deleted as well.
 
-### 6. Verify changes
+### 7. Verify changes
 
 Finally, after testing the endpoints you will see that your database has now been changed according to the endpoint that you tested.
