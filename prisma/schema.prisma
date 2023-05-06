@@ -13,24 +13,24 @@ model items {
   description  String  @db.VarChar(500)
   link         String? @db.VarChar(255)
   lists_idlist Int
-  lists        lists   @relation(fields: [lists_idlist], references: [idlist], onDelete: NoAction, onUpdate: NoAction, map: "fk_items_lists1")
+  lists        lists   @relation(fields: [lists_idlist], references: [idlist], onDelete: Cascade, onUpdate: NoAction, map: "fk_items_lists1")
 
   @@index([lists_idlist], map: "fk_items_lists1_idx")
 }
 
 model lists {
-  idlist      Int     @id @unique(map: "idlist_UNIQUE")
+  idlist      Int     @id @unique(map: "idlist_UNIQUE") @default(autoincrement())
   name        String  @unique(map: "name_UNIQUE") @db.VarChar(45)
   user_iduser Int
   items       items[]
-  user        user    @relation(fields: [user_iduser], references: [iduser], onDelete: NoAction, onUpdate: NoAction, map: "fk_lists_user")
+  user        users   @relation(fields: [user_iduser], references: [iduser], onDelete: NoAction, onUpdate: NoAction, map: "fk_lists_user")
 
   @@index([user_iduser], map: "fk_lists_user_idx")
 }
 
-model user {
+model users {
   iduser   Int     @id @unique(map: "iduser_UNIQUE") @default(autoincrement())
-  email    String  @db.VarChar(255)
+  email    String  @unique(map: "email_UNIQUE") @db.VarChar(255)
   password String  @db.VarChar(255)
   lists    lists[]
 }
