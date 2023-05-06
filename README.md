@@ -84,6 +84,16 @@ Use your REST client to make the request to the available endpoints. You can fin
 
 Also, there is a folder in the repository with a backup file that has a collection of requests that can be imported into your REST Client (see folder src/restclient_backup_collection).
 
+| **Route**              | **HTTP Verb** | **Description**                        |
+| ---------------------- | ------------- | -------------------------------------- |
+| /user/signup           | POST          | Creates a new user                     |
+| /api/favs              | GET           | Get all list of favorites              |
+| /api/favs              | POST          | Creates a new list of favorites        |
+| /api/favs/:id          | GET           | Get a single list of favorites         |
+| /api/favs/:id          | DELETE        | Deletes a list of favorites            |
+| /item/:id              | POST          | Creates an item to include in the list |
+| /user/auth/local/login | POST          | Login user by email/password           |
+
 #### **_Workflow example_**
 
 - Create a new user:
