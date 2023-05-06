@@ -46,7 +46,7 @@
       "params": [],
       "body": {
         "type": "json",
-        "raw": "{\n  \"userId\":1\n}",
+        "raw": "",
         "form": []
       },
       "tests": []

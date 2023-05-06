@@ -32,11 +32,11 @@ export const login = async (req, res, next) => {
   }
 };
 
-//NOTE: token expiration set to 1 day as default
+//NOTE: token expiration set to 1 hour as default
 export const generateToken = (req, res) => {
   try {
     const token = jwt.sign({ id: req.body.userPayload }, process.env.SECRET, {
-      expiresIn: "1d",
+      expiresIn: "1h",
     });
 
     res.status(200).json({ token });

@@ -3,11 +3,8 @@ import { isAuthorized, listValidation } from "./helpers/userScopeValidation.js";
 const prisma = new PrismaClient();
 
 export const getAllLists = async (req, res) => {
-  // This section validates that the user in body request is the same as in the Token
-  const { userId, tokenUserId } = req.body;
-  if (!isAuthorized(userId, tokenUserId)) {
-    return res.status(202).json("userId is unauthorized");
-  }
+  // User id is injected in the body when the verifyToken middleware runs
+  const { tokenUserId } = req.body;
 
   // This section runs the main controller.
   try {
@@ -31,16 +28,11 @@ export const getAllLists = async (req, res) => {
         },
       },
     });
-    // If userList is null the user was not found = no content for the user
-    if (userLists) {
-      // if the length is zero the user has no listed favorites
-      if (userLists.lists.length > 0) {
-        res.status(200).json(userLists.lists);
-      } else {
-        res.status(209).json({ message: "Empty list of favorites" });
-      }
+    // if the length is zero the user has no listed favorites
+    if (userLists.lists.length > 0) {
+      res.status(200).json(userLists.lists);
     } else {
-      res.status(209).json({ error: true, errorMessage: "No content" });
+      res.status(209).json({ message: "Empty list of favorites" });
     }
   } catch (error) {
     res.status(500).json({ error: true });
@@ -51,7 +43,7 @@ export const createList = async (req, res) => {
   try {
     // This section validates that the user in body request is the same as in the Token
     const { name, user_iduser, tokenUserId } = req.body;
-    if (!isAuthorized(user_iduser, tokenUserId)) {
+    if (user_iduser && !isAuthorized(user_iduser, tokenUserId)) {
       return res.status(202).json("userId is unauthorized");
     }
 
@@ -61,6 +53,7 @@ export const createList = async (req, res) => {
     });
     res.status(201).json(newList);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: true });
   }
 };
