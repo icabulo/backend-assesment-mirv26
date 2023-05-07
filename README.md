@@ -28,6 +28,12 @@ CRUD are the main operations we perform for sending or requesting data. It stand
 
 # USER INSTRUCTIONS
 
+## How-to-use video:
+
+[This video](https://www.loom.com/share/96031660e0b74ed68cb95c8708cda291) shows how to use basic workflow for CRUD operations with the API.
+
+You can see the prodution FAVS-API deployed [here](https://backend-assesment-mirv26-production.up.railway.app/)
+
 ## Instructions
 
 This API aims to provide a better way to organize your favorite things: music, clothes, courses, etc., all in one place. You can create a user, then login into your account to create a list of favorite things you like, and finally add items to your list. Later on, this API can be consumed with a frontend application to ultimately allow a nicer user interface (UI).
