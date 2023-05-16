@@ -4,11 +4,13 @@ import express from "express";
 import listsRoutes from "./routes/lists.routes.js";
 import usersRoutes from "./routes/users.routes.js";
 import itemsRoutes from "./routes/items.routes.js";
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT;
 
 app.use(express.json());
+app.use(cors());
 
 const welcomeText =
   "<div> <h1>Welcome to API FAVS</h1> <p>See instructions on the Github repository:</p><p><strong>https://github.com/icabulo/backend-assesment-mirv26</strong></p></div>";
