@@ -43,9 +43,9 @@ export const createList = async (req, res) => {
   try {
     // This section validates that the user in body request is the same as in the Token
     const { name, user_iduser, tokenUserId } = req.body;
-    if (user_iduser && !isAuthorized(user_iduser, tokenUserId)) {
+    /* if (user_iduser && !isAuthorized(user_iduser, tokenUserId)) {
       return res.status(202).json("userId is unauthorized");
-    }
+    } */
 
     // This section runs the main controller.
     const newList = await prisma.lists.create({
