@@ -23,7 +23,7 @@ model lists {
   name        String  @unique(map: "name_UNIQUE") @db.VarChar(45)
   user_iduser Int
   items       items[]
-  user        users   @relation(fields: [user_iduser], references: [iduser], onDelete: NoAction, onUpdate: NoAction, map: "fk_lists_user")
+  user        users   @relation(fields: [user_iduser], references: [iduser], onDelete: Cascade, onUpdate: NoAction, map: "fk_lists_user")
 
   @@index([user_iduser], map: "fk_lists_user_idx")
 }
